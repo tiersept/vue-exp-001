@@ -1,6 +1,6 @@
-# three-001
+# Dump your experiments
 
-> three js
+> Experiments
 
 ## Build Setup
 
