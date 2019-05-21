@@ -47,6 +47,11 @@
           Go Tilt
         </nuxt-link>
 
+        <nuxt-link to="/parralax"
+        class="button--green">
+          Go Parralax
+        </nuxt-link>
+
       </div>
     </div>
 
