@@ -52,6 +52,11 @@
           Go Parralax
         </nuxt-link>
 
+        <nuxt-link to="/svg"
+        class="button--green">
+          Go SVG
+        </nuxt-link>
+
       </div>
     </div>
 
@@ -102,7 +107,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 .container {
   margin: 0 auto;
