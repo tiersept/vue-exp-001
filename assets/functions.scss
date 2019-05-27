@@ -18,6 +18,10 @@
   @include make-flex(row, $align, $justify)
 }
 
+@mixin vertical($align: stretch, $justify: flex-start) {
+  @include make-flex(column, $align, $justify)
+}
+
 
 // horizontal(align = stretch, justify = flex-start)
 //   make-flex row align justify

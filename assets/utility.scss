@@ -1,0 +1,177 @@
+// Width & heights
+._w-100 {
+  width: 100%;
+}
+
+._w-75 {
+  width: 75%;
+}
+
+._w-50 {
+  width: 50%;
+}
+
+._h-100 {
+  height: 100%;
+}
+
+._h-75 {
+  height: 75%;
+}
+
+._h-50 {
+  height: 50%;
+}
+
+// Flex
+._row-center-center {
+  @include horizontal(center, center);
+}
+
+._row-start-start {
+  @include horizontal(flex-start, flex-start);
+}
+
+._row-start-center {
+  @include horizontal(flex-start, center);
+}
+
+._row-center-start {
+  @include horizontal(center, flex-start);
+}
+
+._row-center-end {
+  @include horizontal(center, flex-end);
+}
+
+._row-center-between {
+  @include horizontal(center, space-between);
+}
+  
+._col-center-center {
+  @include vertical(center, center);
+}
+
+._col-start-start {
+  @include vertical(center, center);
+}
+
+._col-start-center {
+  @include vertical(flex-start, center);
+}
+
+._col-center-start {
+  @include vertical(center, start);
+}
+
+._col-center-end {
+  @include vertical(center, flex-end);
+}
+
+._col-center-between {
+  @include vertical(center, space-between);
+}
+
+._col-start-around {
+  @include vertical(flex-start, space-around);
+}
+
+.p-0 {
+  padding: 0; 
+}
+
+.pt-0 {
+  padding-top: 0; 
+}
+
+// .pt-1 {
+//   padding-top: $spacing-small;
+// }
+
+// .pr-1
+//   padding-right $spacing-small !important
+  
+// .pb-0
+//   padding-bottom 0 !important
+
+// .pb-1
+//   padding-bottom $spacing-small !important        
+
+// .pl-0
+//   padding-left 0 !important
+
+// .m-0
+//   margin 0 !important
+
+// .mb-0
+//   margin-bottom 0 !important
+
+// .mb-1
+//   margin-bottom $spacing-small !important
+
+// .mb-2
+//   margin-bottom $spacing-medium !important
+  
+// .mb-3
+//   margin-bottom $spacing-large !important
+  
+// .mb-4
+//   margin-bottom $spacing-x-large !important
+  
+// .mb-5
+//   margin-bottom $spacing-xx-large !important
+
+// .mt-0
+//   margin-top 0 !important
+
+// .mt-1
+//   margin-top $spacing-small !important
+  
+// .mt-2
+//   margin-top $spacing-medium !important
+  
+// .mt-3
+//   margin-top $spacing-large !important
+  
+// .mt-4
+//   margin-top $spacing-x-large !important
+  
+// .mt-5
+//   margin-top $spacing-xx-large !important
+  
+// .ml-1
+//   margin-left $spacing-small !important
+  
+// .ml-2
+//   margin-left $spacing-medium !important
+
+// .ml-3
+//   margin-left $spacing-large !important
+
+// .ml-4
+//   margin-left $spacing-x-large !important
+
+// .ml-5
+//   margin-left $spacing-xx-large !important
+  
+// .mr-1
+//   margin-right $spacing-small !important
+  
+// .mr-2
+//   margin-right $spacing-medium !important
+
+// .mr-3
+//   margin-right $spacing-large !important
+
+// .mr-4
+//   margin-right $spacing-x-large !important
+
+
+// ._float-right
+//   float right
+  
+// ._float-left
+//   float left
+  
+// ._has-tabbar
+//   padding-top $height-navbar
