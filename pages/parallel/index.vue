@@ -2,20 +2,21 @@
   <section class="container-vert">
     <h1>Parallel</h1>
     <div class="wrapper">
-      <transition name="fade-up">
+      <!-- <transition name="fade-up">
         <div class="half">
           <div v-for="post in posts" :key="post.id" class="card">
             <h2>{{ post.title }}</h2>
           </div>
         </div>
-      </transition>
+      </transition> -->
       <div class="half">
         <transition-group
           @enter="handleEnter"
           appear
         >
-          <div v-for="photo in photos" :key="photo.id"  class="photo-card" :class="photo.id">
+          <div v-for="(photo, i) in photos" :key="photo.id"  class="photo-card" :class="photo.id" :data-index="i">
             <img :key="photo.id" :src="photo.thumbnailUrl">
+            <!-- <div style="background: black; width: 50px; height: 50px"></div> -->
           </div>
         </transition-group>
       </div>
@@ -31,18 +32,21 @@ import anime from 'animejs'
 export default {
   data() {
     return {
-
+      photos: [],
+      loaded: false
     }
   },
 
-  async asyncData({ $axios, query, error }) {
-    let [postRes, photosRes] = await Promise.all([
-      $axios.get('https://jsonplaceholder.typicode.com/posts?_start=0&_limit=500'),
-      $axios.get('https://jsonplaceholder.typicode.com/photos?_start=0&_limit=50'),
-    ])
+  async asyncData({ $axios, error }) {
+    const results = await $axios.get('https://jsonplaceholder.typicode.com/photos?_start=0&_limit=200')
+    // let [postRes, photosRes] = await Promise.all([
+    //   $axios.get('https://jsonplaceholder.typicode.com/posts?_start=0&_limit=500'),
+    //   $axios.get('https://jsonplaceholder.typicode.com/photos?_start=0&_limit=200')
+    // ])
     return {
-       posts: postRes.data,
-       photos: photosRes.data
+      //  posts: postRes.data,
+      //  photos: photosRes.data
+       photos: results.data
     }
   },
 
@@ -53,11 +57,19 @@ export default {
     // console.log('posts', this.posts)
   },
   methods: {
-    handleEnter(done) {
+    handleEnter(el, done) {
       anime({
-        targets: '.photo-card',
-        translateX: 270,
-        delay: anime.stagger(100) // increase delay by 100ms for each elements.
+        targets: el,
+        translateY: [84, 0],
+        opacity: 1,
+        // keyframes: [
+        //   {translateY: 84, opacity: 0},
+        //   {translateY: 0, opacity: 1}
+        // ],
+        easing: 'easeOutElastic(1, .8)',
+        delay: 75 * el.dataset.index,
+        // delay: anime.stagger(100), // increase delay by 100ms for each elements.
+        complete: done
       });
 
     }
@@ -100,6 +112,7 @@ h2 {
 
 .photo-card {
   float: right;
+  opacity: 0;
 }
 
 </style>

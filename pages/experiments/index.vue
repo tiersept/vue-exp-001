@@ -16,6 +16,10 @@
         class="button--green">
           experiment-2</nuxt-link>          
 
+        <nuxt-link 
+        to="/experiments/experiment-3"
+        class="button--green">
+          experiment-3</nuxt-link>    
 
       </div>
     </div>
