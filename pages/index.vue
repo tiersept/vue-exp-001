@@ -57,6 +57,12 @@
           Go SVG
         </nuxt-link>
 
+        <nuxt-link to="/title-reveals"
+        class="button--green">
+          Go title reveals
+        </nuxt-link>
+
+
       </div>
     </div>
 

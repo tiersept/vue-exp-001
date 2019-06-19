@@ -25,6 +25,7 @@ export default {
     console.log('mounted')
     this.$nextTick(() => {
       this.isActive = true;
+      console.log('params', this.$route.params)
     });
   },
   beforeDestroy() {

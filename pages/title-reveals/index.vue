@@ -1,0 +1,159 @@
+<template>
+  <div class="grid-x grid-margin-x">
+
+    <section class="cell large-12 hero">
+      <transition
+        @enter="handleEnter"
+        appear
+      >
+        <div class="anime-1">
+          <h1>Title reveal animations</h1>
+          <span class="clip"></span>
+        </div>      
+      </transition>
+    </section>
+
+    <section class="cell large-12 medium-6">
+        <div class="anime-2">
+          <h1>A New Hope</h1>
+          <span class="clip"></span>
+        </div>
+    </section>
+
+    <section class="cell large-12 medium-6">
+      <h1>The Empire Strikes Back</h1>
+    </section>
+
+    <section class="cell large-12 medium-6">
+      <h1>Return of the Jedi</h1>
+    </section>
+
+    <section class="cell large-12 medium-6">
+      <h1>The Phantom Menace</h1>
+    </section>
+
+
+  </div>
+</template>
+
+<script>
+
+import anime from 'animejs'
+
+export default {
+  data() {
+    return {
+
+    }
+  },
+
+  async asyncData({ $axios, params, query, error }) {
+
+  },
+
+  components: {
+
+  },
+  mounted() {
+
+  },
+  methods: {
+
+    handleEnter() {
+      // let animeOne = anime({
+      //   targets: '.anime-1 .clip',
+      //   opacity: [0, 1],
+      //   duration: 1000,
+      //   easing: 'easeInOutSine'
+      // });
+
+      let animeOneTitle = anime({
+        targets: '.anime-1 h1',
+        opacity: [0, 1],
+        // clipPath: ['polygon(34% 0%, 66% 15%, 189% 111%, -62% 79%)', 'polygon(0% 0%, 277% 148%, 221% 140%, 80% 46%)'],
+        clipPath: ['polygon(0% 0%, 277% 148%, 221% 140%, 80% 46%)', 'polygon(20% 0%, 105% 15%, 189% 111%, -62% 79%)'],
+        // loop: true,
+        duration: 1400,
+        easing: 'easeInOutSine'
+      });
+
+      let animeTwoTitle = anime({
+        targets: '.anime-2 h1',
+        opacity: [0, 1],
+        translateY: [42, 0],
+        clipPath: ['inset(100% 0 0 0)', 'inset(0% 0 0 0)'],
+        duration: 1200,
+        easing: 'easeOutQuart'
+      });
+
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+
+section {
+  width: 100%;
+  height: 80vh;
+  background: #30fff0;
+
+  h1 {
+    width: -webkit-fit-content;
+    padding: 0 2.4rem;
+    text-align: left;
+    color: white;
+    font-size: 6rem;
+  }
+
+  &:nth-child(even) {
+    @include horizontal(flex-start, flex-end);
+    background: #052aff;
+
+    h1 {
+      text-align: right;
+    }
+  }
+
+  @include breakpoint(medium only) {
+    margin-bottom: 30px;
+  }
+}
+
+.anime-1 {
+  position: relative;
+  width: -webkit-fit-content;
+
+  h1 {
+    width: -webkit-fit-content;
+    -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+    // clip-path: polygon(0% 0%, 277% 148%, 221% 140%, 80% 46%);
+  }
+
+  // &:after {
+  //   content: '';
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   width: 100%;
+  //   height: 100%;
+  //   background: #6200ff;
+  //   clip-path: polygon(25% 0%, 100% 30%, 75% 100%, 75% 100%);
+  //   mix-blend-mode: hard-light;
+  //   transition: all .24s ease-in;
+  // }
+}
+
+.anime-2 {
+  position: relative;
+  width: -webkit-fit-content;
+
+  h1 {
+    width: -webkit-fit-content;
+    -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: white;
+  }
+}
+
+</style>

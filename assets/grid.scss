@@ -31,7 +31,7 @@ $grid-margin-gutters: (
 @include foundation-global-styles;
 @include foundation-xy-grid-classes(
   $base-grid: true,
-  $margin-grid: false,
+  $margin-grid: true,
   $padding-grid: true,
   $block-grid: false,
   $collapse: true,

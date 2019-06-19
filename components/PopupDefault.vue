@@ -21,6 +21,7 @@ export default {
   mounted() {
     // console.log("mounted")
     this.isActive = true
+    console.log('params', this.$route.params)
   },
   beforeDestroy() { //DOESNT WORK
     // console.log("before destroy")
