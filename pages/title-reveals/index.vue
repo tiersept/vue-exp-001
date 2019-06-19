@@ -14,22 +14,28 @@
     </section>
 
     <section class="cell large-12 medium-6">
-        <div class="anime-2">
+        <div class="anime anime-2">
           <h1>A New Hope</h1>
           <span class="clip"></span>
         </div>
     </section>
 
     <section class="cell large-12 medium-6">
-      <h1>The Empire Strikes Back</h1>
+      <div class="anime anime-3">
+        <h1>The Empire Strikes Back</h1>
+      </div>
     </section>
 
     <section class="cell large-12 medium-6">
-      <h1>Return of the Jedi</h1>
+      <div class="anime anime-4">
+        <h1>Return of the Jedi</h1>
+      </div>
     </section>
 
     <section class="cell large-12 medium-6">
-      <h1>The Phantom Menace</h1>
+      <div class="anime anime-5">
+        <h1>The Phantom Menace</h1>
+      </div>
     </section>
 
 
@@ -39,6 +45,7 @@
 <script>
 
 import anime from 'animejs'
+import scrollMonitor from 'scrollmonitor'
 
 export default {
   data() {
@@ -55,17 +62,46 @@ export default {
 
   },
   mounted() {
-
+    this.initScrollMonitor();
   },
   methods: {
+    initScrollMonitor() {
+
+      const elArr = document.querySelectorAll('.anime');
+
+      //init watchers
+      elArr.forEach(el => {
+        let watchEl = scrollMonitor.create( el, {top: -400, bottom: -200});
+
+        watchEl.enterViewport(function() {
+          // console.log('enter', el)
+          let animeIn= anime({
+            targets: el.querySelector('h1'),
+            opacity: [0, 1],
+            translateY: [42, 0],
+            clipPath: ['inset(100% 0 0 0)', 'inset(0% 0 0 0)'],
+            duration: 1200,
+            easing: 'easeOutQuart'
+          });
+        });
+
+        watchEl.exitViewport(function() {
+          // console.log('exit', el)
+          let animeOut = anime({
+            targets: el.querySelector('h1'),
+            opacity: [0, 1],
+            translateY: [42, 0],
+            clipPath: ['inset(100% 0 0 0)', 'inset(0% 0 0 0)'],
+            duration: 1200,
+            direction: 'reverse',
+            easing: 'easeOutQuart'
+          });
+        });
+      })
+  
+    },
 
     handleEnter() {
-      // let animeOne = anime({
-      //   targets: '.anime-1 .clip',
-      //   opacity: [0, 1],
-      //   duration: 1000,
-      //   easing: 'easeInOutSine'
-      // });
 
       let animeOneTitle = anime({
         targets: '.anime-1 h1',
@@ -75,15 +111,6 @@ export default {
         // loop: true,
         duration: 1400,
         easing: 'easeInOutSine'
-      });
-
-      let animeTwoTitle = anime({
-        targets: '.anime-2 h1',
-        opacity: [0, 1],
-        translateY: [42, 0],
-        clipPath: ['inset(100% 0 0 0)', 'inset(0% 0 0 0)'],
-        duration: 1200,
-        easing: 'easeOutQuart'
       });
 
     }
@@ -104,6 +131,7 @@ section {
     text-align: left;
     color: white;
     font-size: 6rem;
+    opacity: 0;
   }
 
   &:nth-child(even) {
