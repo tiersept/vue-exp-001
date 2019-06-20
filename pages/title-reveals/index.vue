@@ -105,7 +105,9 @@ export default {
             translateY: function() {
               return vm.scrollUp ? [0, 42] : [42, 0]
             },
-            clipPath: ['inset(100% 0 0 0)', 'inset(0% 0 0 0)'],
+            clipPath: function() {
+              return vm.scrollUp ? ['inset(100% 0 0 0)', 'inset(0% 0 0 0)'] : ['inset(0 0 100% 0)', 'inset(0 0 0% 0)']
+            },
             duration: 1000,
             easing: 'easeOutQuart'
           });
