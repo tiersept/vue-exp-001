@@ -50,7 +50,8 @@ import scrollMonitor from 'scrollmonitor'
 export default {
   data() {
     return {
-
+      lastScrollTop: 0,
+      scrollUp: false,
     }
   },
 
@@ -61,48 +62,80 @@ export default {
   components: {
 
   },
+
   mounted() {
     this.initScrollMonitor();
+    this.initScrollDirection();
   },
+
+  destroyed() {
+    window.removeEventListener('scroll', this.scrollDirectionInit);
+  },
+
   methods: {
+
+    initScrollDirection() {
+      window.addEventListener("scroll", this.scrollDirectionInit, false);
+    },
+
+    scrollDirectionInit() {
+      var st = window.pageYOffset || document.documentElement.scrollTop;
+      if (st > this.lastScrollTop){
+        this.scrollUp = false
+      } else {
+        this.scrollUp = true
+      }
+      this.lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+      return
+    },
+
     initScrollMonitor() {
 
       const elArr = document.querySelectorAll('.anime');
+      var vm = this;
 
       //init watchers
       elArr.forEach(el => {
         let watchEl = scrollMonitor.create( el, {top: -400, bottom: -200});
-
+        
         watchEl.enterViewport(function() {
-          // console.log('enter', el)
-          let animeIn= anime({
+          let animeIn = anime({
             targets: el.querySelector('h1'),
             opacity: [0, 1],
-            translateY: [42, 0],
+            translateY: function() {
+              return vm.scrollUp ? [0, 42] : [42, 0]
+            },
             clipPath: ['inset(100% 0 0 0)', 'inset(0% 0 0 0)'],
-            duration: 1200,
+            duration: 1000,
             easing: 'easeOutQuart'
           });
+          return
         });
 
         watchEl.exitViewport(function() {
-          // console.log('exit', el)
           let animeOut = anime({
             targets: el.querySelector('h1'),
-            opacity: [0, 1],
-            translateY: [42, 0],
-            clipPath: ['inset(100% 0 0 0)', 'inset(0% 0 0 0)'],
+            opacity: {
+              value: 0,
+              duration: 600,
+              delay: 220,
+              easing: 'easeInOutCubic'
+            },
+            translateY: function() {
+              return vm.scrollUp ? [42, 0] : [0, 42]
+            },
+            // clipPath: ['inset(100% 0 0 0)', 'inset(0% 0 0 0)'],
             duration: 1200,
-            direction: 'reverse',
             easing: 'easeOutQuart'
           });
+          return
         });
       })
-  
+      return
     },
 
     handleEnter() {
-
+      // Test Hero title
       let animeOneTitle = anime({
         targets: '.anime-1 h1',
         opacity: [0, 1],
@@ -112,7 +145,7 @@ export default {
         duration: 1400,
         easing: 'easeInOutSine'
       });
-
+      return
     }
   }
 }
@@ -132,6 +165,7 @@ section {
     color: white;
     font-size: 6rem;
     opacity: 0;
+    backface-visibility: visible;
   }
 
   &:nth-child(even) {

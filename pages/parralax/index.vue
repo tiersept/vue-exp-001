@@ -66,7 +66,7 @@ import parralax from '@/utils/parralax'
 export default {
   data() {
     return {
-
+      parralax: ''
     }
   },
 
@@ -78,18 +78,23 @@ export default {
 
   },
   mounted() {
-    this.initParralax();
+    this.initParralax()
+
+  },
+  destroyed() {
+    this.parralax.destroy()
 
   },
   methods: {
     initParralax() {
-      const parralax = new Parralax('.parralax', {
+      this.parralax = new Parralax('.parralax', {
         center: false,
         callback: function(positions) {
           // callback every position change
           console.log(positions);
         }
       })
+      return
     }
 
   }
