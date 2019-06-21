@@ -73,7 +73,6 @@ export default {
   },
 
   methods: {
-
     initScrollDirection() {
       window.addEventListener("scroll", this.scrollDirectionInit, false);
     },
@@ -103,12 +102,12 @@ export default {
             targets: el.querySelector('h1'),
             opacity: [0, 1],
             translateY: function() {
-              return vm.scrollUp ? [0, 42] : [42, 0]
+              return vm.scrollUp ? [-42, 0] : [-42, 0]
             },
             clipPath: function() {
               return vm.scrollUp ? ['inset(100% 0 0 0)', 'inset(0% 0 0 0)'] : ['inset(0 0 100% 0)', 'inset(0 0 0% 0)']
             },
-            duration: 1000,
+            duration: 1600,
             easing: 'easeOutQuart'
           });
           return
@@ -124,7 +123,7 @@ export default {
               easing: 'easeInOutCubic'
             },
             translateY: function() {
-              return vm.scrollUp ? [42, 0] : [0, 42]
+              return vm.scrollUp ? [0, -42] : [0, 42]
             },
             // clipPath: ['inset(100% 0 0 0)', 'inset(0% 0 0 0)'],
             duration: 1200,
@@ -167,7 +166,8 @@ section {
     color: white;
     font-size: 6rem;
     opacity: 0;
-    backface-visibility: visible;
+    // backface-visibility: visible;
+    transform-style: preserve-3d;
   }
 
   &:nth-child(even) {
