@@ -62,6 +62,11 @@
           Go title reveals
         </nuxt-link>
 
+        <nuxt-link to="/on-scroll-sticky"
+        class="button--green">
+          Go on scroll
+        </nuxt-link>
+
 
       </div>
     </div>
