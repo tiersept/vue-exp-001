@@ -8,25 +8,25 @@
         Try whatever
       </h2>
       <div class="links">
-        <nuxt-link 
+        <nuxt-link
         to="/experiments"
         class="button--green">
           Experiments
         </nuxt-link>
 
-        <nuxt-link 
+        <nuxt-link
         class="button--green"
         to="/experiments">
           What is this?
         </nuxt-link>
 
-        <nuxt-link 
+        <nuxt-link
         to="/posts"
         class="button--green">
           Posts
         </nuxt-link>
 
-        <!-- <nuxt-link 
+        <!-- <nuxt-link
         to="/posts/post/145"
         class="button--green">
           Posts 145
@@ -62,9 +62,9 @@
           Go title reveals
         </nuxt-link>
 
-        <nuxt-link to="/on-scroll-sticky"
+        <nuxt-link to="/title-reveals-2"
         class="button--green">
-          Go on scroll
+          Go title reveals 2
         </nuxt-link>
 
 
@@ -72,7 +72,7 @@
     </div>
 
     <div>
-      <transition 
+      <transition
         @enter="enter"
         @leave="leave"
         :css=false
@@ -80,10 +80,10 @@
         <span v-if="showPopup">
           <NuxtChild name="popup"/>
         </span>
-        
+
       </transition>
     </div>
-  
+
   </section>
 </template>
 

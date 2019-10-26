@@ -2,12 +2,15 @@
   <div class="grid-x grid-margin-x">
 
     <section class="cell large-12 hero">
-
-      <div class="anime-1">
-        <h1>Title reveal animations</h1>
-        <span class="clip"></span>
-      </div>      
-
+      <transition
+        @enter="handleEnter"
+        appear
+      >
+        <div class="anime-1">
+          <h1>Title reveal animations</h1>
+          <span class="clip"></span>
+        </div>
+      </transition>
     </section>
 
     <section class="cell large-12 medium-6">
@@ -49,6 +52,7 @@ export default {
     return {
       lastScrollTop: 0,
       scrollUp: false,
+      scrolled: false
     }
   },
 
@@ -62,16 +66,23 @@ export default {
 
   mounted() {
     this.initScrollMonitor();
-    this.initScrollDirection();
+    this.initScrollEvents();
   },
 
   destroyed() {
     window.removeEventListener('scroll', this.scrollDirectionInit);
+    window.removeEventListener('scroll', this.handleScroll);
   },
 
   methods: {
-    initScrollDirection() {
+
+    handleScroll() {
+
+    },
+
+    initScrollEvents() {
       window.addEventListener("scroll", this.scrollDirectionInit, false);
+      window.addEventListener('scroll', this.handleScroll);
     },
 
     scrollDirectionInit() {
@@ -92,20 +103,33 @@ export default {
 
       //init watchers
       elArr.forEach(el => {
-        let watchEl = scrollMonitor.create( el, {top: -400, bottom: -200});
-        
+        let watchEl = scrollMonitor.create( el, {top: -200, bottom: -100});
+        let watchElFull = scrollMonitor.create( el, {top: 300, bottom: 300} );
+
         watchEl.enterViewport(function() {
+          // console.log('watchEl', watchEl)
+          // watchEl.recalculateLocation()
+          // watchElFull.recalculateLocation()
           let animeIn = anime({
             targets: el.querySelector('h1'),
             opacity: [0, 1],
             translateY: function() {
+              console.log('scroll enter')
               return vm.scrollUp ? [-42, 0] : [-42, 0]
             },
+            scaleY:
+              [
+                { value: 3, duration: 300 },
+                { value: 1, duration: 400 }
+              ],
             clipPath: function() {
               return vm.scrollUp ? ['inset(100% 0 0 0)', 'inset(0% 0 0 0)'] : ['inset(0 0 100% 0)', 'inset(0 0 0% 0)']
             },
-            duration: 1600,
-            easing: 'easeOutQuart'
+            duration: 600,
+            transformOrigin: function() {
+              return vm.scrollUp ? '50% 0%' : '50% 100%';
+            },
+            easing: 'easeInOutCubic',
           });
           return
         });
@@ -115,23 +139,38 @@ export default {
             targets: el.querySelector('h1'),
             opacity: {
               value: 0,
-              duration: 600,
-              delay: 220,
-              easing: 'easeInOutCubic'
+              duration: 300,
+              delay: 100,
+              easing: 'easeOutQuart'
             },
             translateY: function() {
               return vm.scrollUp ? [0, -42] : [0, 42]
             },
             // clipPath: ['inset(100% 0 0 0)', 'inset(0% 0 0 0)'],
-            duration: 1200,
-            easing: 'easeOutQuart'
+            duration: 400,
+            easing: 'easeOutQuart',
           });
           return
         });
+
+
       })
       return
-    }
+    },
 
+    handleEnter() {
+      // Test Hero title
+      let animeOneTitle = anime({
+        targets: '.anime-1 h1',
+        opacity: [0, 1],
+        // clipPath: ['polygon(34% 0%, 66% 15%, 189% 111%, -62% 79%)', 'polygon(0% 0%, 277% 148%, 221% 140%, 80% 46%)'],
+        clipPath: ['polygon(0% 0%, 277% 148%, 221% 140%, 80% 46%)', 'polygon(20% 0%, 105% 15%, 189% 111%, -62% 79%)'],
+        // loop: true,
+        duration: 1400,
+        easing: 'easeInOutSine'
+      });
+      return
+    }
   }
 }
 </script>
@@ -141,7 +180,7 @@ export default {
 section {
   width: 100%;
   height: 80vh;
-  background: #414141;
+  background: #1d1d1d;
 
   h1 {
     width: -webkit-fit-content;
@@ -156,7 +195,7 @@ section {
 
   &:nth-child(even) {
     @include horizontal(flex-start, flex-end);
-    background: #052aff;
+    background: #8805ff;
 
     h1 {
       text-align: right;
@@ -165,6 +204,10 @@ section {
 
   @include breakpoint(medium only) {
     margin-bottom: 30px;
+
+    h1 {
+      font-size: 4rem;
+    }
   }
 }
 
