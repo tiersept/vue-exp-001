@@ -67,6 +67,10 @@
           Go title reveals 2
         </nuxt-link>
 
+        <nuxt-link to="/blurs"
+        class="button--green">
+          Blurs
+        </nuxt-link>
 
       </div>
     </div>

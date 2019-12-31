@@ -1,0 +1,34 @@
+h1, h2, h3, h4, h5, h6 {
+  @apply font-primary font-black;
+}
+
+h1 {
+  @apply text-3xl;
+}
+h2 {
+  @apply text-2xl;
+}
+h3 {
+  @apply text-xl;
+}
+h4 {
+  @apply text-xl;
+}
+h5 {
+  @apply text-lg;
+}
+h6 {
+  @apply text-lg;
+}
+a {
+  @apply text-black underline;
+
+  &:hover {
+    @apply text-green-500;
+  }
+
+  &:active {
+    @apply no-underline;
+  }
+
+}

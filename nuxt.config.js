@@ -99,6 +99,9 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    link: [
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900&display=swap' }
     ]
   },
 
@@ -121,6 +124,11 @@ export default {
 
   ],
 
+  tailwindcss: {
+    configPath: '~/tailwind.config.js',
+    cssPath: '~/assets/tailwind.css'
+  },
+
   /*
   ** Nuxt.js modules
   */
@@ -128,7 +136,8 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+    '@nuxtjs/tailwindcss'
   ],
   /*
   ** Axios module configuration

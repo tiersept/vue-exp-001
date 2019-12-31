@@ -1,38 +1,46 @@
 <template>
   <div class="grid-x grid-margin-x">
 
-    <section class="cell large-12 hero">
+    <section class="cell large-12 hero py-12">
       <transition
         @enter="handleEnter"
         appear
       >
         <div class="anime-1">
-          <h1>Title reveal animations</h1>
+          <h1>Blur tests</h1>
           <span class="clip"></span>
         </div>
       </transition>
     </section>
 
-    <section class="cell large-12 medium-6">
+    <section class="cell large-12 medium-6 py-12">
         <div class="anime anime-2">
           <h1>A New Hope</h1>
-          <span class="clip"></span>
+        </div>
+        <div class="anime anime-2">
+          <h1>The Empire Strikes Back</h1>
+        </div>
+        <div class="anime anime-2">
+          <h1>Return of the Jedi</h1>
+        </div>
+        <div class="anime anime-2">
+          <h1>The Phantom Menace</h1>
         </div>
     </section>
 
-    <section class="cell large-12 medium-6">
+    <section class="cell large-12 medium-6 py-12">
       <div class="anime anime-3">
         <h1>The Empire Strikes Back</h1>
       </div>
     </section>
 
-    <section class="cell large-12 medium-6">
+    <section class="cell large-12 medium-6 py-12">
       <div class="anime anime-4">
         <h1>Return of the Jedi</h1>
       </div>
     </section>
 
-    <section class="cell large-12 medium-6">
+    <section class="cell large-12 medium-6 py-12">
       <div class="anime anime-5">
         <h1>The Phantom Menace</h1>
       </div>
@@ -43,7 +51,6 @@
 </template>
 
 <script>
-
 import anime from 'animejs'
 import scrollMonitor from 'scrollmonitor'
 
@@ -65,8 +72,8 @@ export default {
   },
 
   mounted() {
-    this.initScrollMonitor();
-    this.initScrollEvents();
+    this.initScrollMonitor()
+    this.initScrollEvents()
   },
 
   destroyed() {
@@ -81,69 +88,53 @@ export default {
     },
 
     initScrollEvents() {
-      window.addEventListener("scroll", this.scrollDirectionInit, false);
-      window.addEventListener('scroll', this.handleScroll);
+      window.addEventListener('scroll', this.scrollDirectionInit, false)
+      window.addEventListener('scroll', this.handleScroll)
     },
 
     scrollDirectionInit() {
       var st = window.pageYOffset || document.documentElement.scrollTop;
-      if (st > this.lastScrollTop){
+      if (st > this.lastScrollTop) {
         this.scrollUp = false
       } else {
         this.scrollUp = true
       }
-      this.lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+      this.lastScrollTop = st <= 0 ? 0 : st // For Mobile or negative scrolling
       return
     },
 
     initScrollMonitor() {
 
       const elArr = document.querySelectorAll('.anime');
-      var vm = this;
+      // var vm = this;
 
       //init watchers
       elArr.forEach(el => {
-        let watchEl = scrollMonitor.create( el, {top: -400, bottom: -200});
-        let watchElFull = scrollMonitor.create( el, {top: 300, bottom: 300} );
-
-        watchEl.enterViewport(function() {
-          // console.log('watchEl', watchEl)
-          // watchEl.recalculateLocation()
-          // watchElFull.recalculateLocation()
+        const watchEl = scrollMonitor.create(el, { top: -200, bottom: -100 })
+        const watchElFull = scrollMonitor.create(el, { top: 300, bottom: 300 })
+        el.style.filter = 'blur(8px)'
+        watchEl.enterViewport(() => {
           let animeIn = anime({
-            targets: el.querySelector('h1'),
-            opacity: [0, 1],
-            translateY: function() {
-              return vm.scrollUp ? [-42, 0] : [-42, 0]
-            },
-            clipPath: function() {
-              return vm.scrollUp ? ['inset(100% 0 0 0)', 'inset(0% 0 0 0)'] : ['inset(0 0 100% 0)', 'inset(0 0 0% 0)']
-            },
             duration: 800,
-            easing: 'easeOutQuart',
-          });
+            direction: 'reverse',
+            update: (anim) => {
+              el.style.filter = 'blur(' + 8 * Math.floor(anim.progress) / 100 + 'px)'
+            },
+            easing: 'easeInSine',
+          })
           return
-        });
+        })
 
-        watchEl.exitViewport(function() {
+        watchEl.exitViewport(() => {
           let animeOut = anime({
-            targets: el.querySelector('h1'),
-            opacity: {
-              value: 0,
-              duration: 600,
-              delay: 220,
-              easing: 'easeInOutCubic'
+            duration: 600,
+            update: (anim) => {
+              el.style.filter = 'blur(' + 8 * Math.floor(anim.progress) / 100 + 'px)'
             },
-            translateY: function() {
-              return vm.scrollUp ? [0, -42] : [0, 42]
-            },
-            // clipPath: ['inset(100% 0 0 0)', 'inset(0% 0 0 0)'],
-            duration: 800,
-            easing: 'easeOutQuart',
-          });
+            easing: 'easeInSine',
+          })
           return
-        });
-
+        })
 
       })
       return
@@ -151,7 +142,7 @@ export default {
 
     handleEnter() {
       // Test Hero title
-      let animeOneTitle = anime({
+      const animeOneTitle = anime({
         targets: '.anime-1 h1',
         opacity: [0, 1],
         // clipPath: ['polygon(34% 0%, 66% 15%, 189% 111%, -62% 79%)', 'polygon(0% 0%, 277% 148%, 221% 140%, 80% 46%)'],
@@ -159,7 +150,7 @@ export default {
         // loop: true,
         duration: 1400,
         easing: 'easeInOutSine'
-      });
+      })
       return
     }
   }
@@ -171,7 +162,7 @@ export default {
 section {
   width: 100%;
   height: 80vh;
-  background: #30fff0;
+  background: #1d1d1d;
 
   h1 {
     width: -webkit-fit-content;
@@ -179,14 +170,14 @@ section {
     text-align: left;
     color: white;
     font-size: 6rem;
-    opacity: 0;
+    // opacity: 0;
     // backface-visibility: visible;
     transform-style: preserve-3d;
   }
 
   &:nth-child(even) {
     // @include horizontal(flex-start, flex-end);
-    background: #052aff;
+    background: #8805ff;
 
     h1 {
       text-align: right;

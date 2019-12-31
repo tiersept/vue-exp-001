@@ -77,7 +77,7 @@ h1 {
 
 .container {
   padding: 4.2rem 8.4rem;
-  @include horizontal(center, flex-end);
+  // @include horizontal(center, flex-end);
 }
 
 .image-container {

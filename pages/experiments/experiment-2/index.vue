@@ -11,17 +11,20 @@
 <script>
 import * as THREE from 'three'
 import * as Stats from 'stats.js'
+import OrbitControls from 'orbit-controls-es6'
+
 // import Logo from '~/components/Logo.vue';
 
 export default {
 	data() {
 		return {
       // https://www.mathwarehouse.com/arithmetic/numbers/list-of-perfect-squares.php
-      pixelsAmount: 6084,
+      pixelsAmount: 19600,
       pixelDensity: .2,
       pixels: null,
       stats: null,
-			camera: null,
+      camera: null,
+      controls: null,
 			scene: null,
 			renderer: null,
 			pixelGeometry: null,
@@ -47,7 +50,6 @@ export default {
 			this.setupLights();
 			this.addCube();
       this.addPixels();
-
       this.animate();
 
 		}, 100);
@@ -65,7 +67,7 @@ export default {
 
       // Camera
 			this.camera = new THREE.PerspectiveCamera( 35, el.offsetWidth / el.offsetHeight, 0.1, 1000 );
-			this.camera.position.z = 200;
+      this.camera.position.z = 200;
 
 			this.scene = new THREE.Scene();
 
@@ -83,6 +85,10 @@ export default {
 					// wireframe: true,
       })
       // this.pixelPositions = new Float32Array(this.pixelsAmount)
+
+      //OrbitControls
+      this.controls = new OrbitControls( this.camera, this.renderer.domElement )
+      // this.controls.update()
 
       // Stats
       this.stats = new Stats()
@@ -178,7 +184,15 @@ export default {
 
     updatePositions () {
       this.pixels.geometry.attributes.position.array.forEach((pos, i) => {
-        this.pixels.geometry.attributes.position.array[i] = Math.tan(pos * this.getRandomNrDecimal(-.2, .2)) * 20
+        // console.log(pos)
+        // this.pixels.geometry.attributes.position.array[i] = Math.sin(pos * this.getRandomNrDecimal(1, 10)) * 20
+        if (this.isOdd(i)) {
+          this.pixels.geometry.attributes.position.array[i] = Math.cos(pos * this.getRandomNrDecimal(1, 10)) * 20 / Math.PI
+        } else {
+          this.pixels.geometry.attributes.position.array[i] = Math.sin(pos * this.getRandomNrDecimal(1, 10)) * 20 / Math.PI
+        }
+        if (this.isDivisible(i, 5)) this.pixels.geometry.attributes.position.array[i] = Math.tan(pos * this.getRandomNrDecimal(1, 10)) * 10
+        // if (this.isDivisible(i, 3) && i.toString().includes(6)) this.pixels.geometry.attributes.position.array[i] = Math.cos(pos * this.getRandomNrDecimal(1, 10)) * 50
       })
     },
 
@@ -192,8 +206,15 @@ export default {
 
     getRandomNrDecimal (min, max) {
       return Math.random() * (max - min) + min
-    }
+    },
 
+    isDivisible (num, factor) {
+      return num % factor === 0
+    },
+
+    isOdd (num) {
+      return (num % 2) == 1
+    }
 
 	}
 
@@ -224,6 +245,7 @@ export default {
     left 12%
     text-align left
     color #00ff8d
-    font-size 18rem
+    font-size 12rem
     z-index 999
+    opacity .2
 </style>

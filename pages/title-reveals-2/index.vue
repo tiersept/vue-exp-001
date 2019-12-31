@@ -194,7 +194,7 @@ section {
   }
 
   &:nth-child(even) {
-    @include horizontal(flex-start, flex-end);
+    // @include horizontal(flex-start, flex-end);
     background: #8805ff;
 
     h1 {
@@ -202,13 +202,13 @@ section {
     }
   }
 
-  @include breakpoint(medium only) {
-    margin-bottom: 30px;
+  // @include breakpoint(medium only) {
+  //   margin-bottom: 30px;
 
-    h1 {
-      font-size: 4rem;
-    }
-  }
+  //   h1 {
+  //     font-size: 4rem;
+  //   }
+  // }
 }
 
 .anime-1 {
