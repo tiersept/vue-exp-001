@@ -15,7 +15,7 @@
     "@nuxtjs/pwa": "^2.6.0",
     "animejs": "^3.0.1",
     "cross-env": "^5.2.0",
-    "gsap": "^1.20.2",
+    "gsap": "^3.6.0",
     "nuxt": "^2.4.0",
     "orbit-controls-es6": "^2.0.1",
     "scrollmonitor": "^1.2.4",
