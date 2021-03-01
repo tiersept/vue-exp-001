@@ -22,7 +22,7 @@
     "stats.js": "^0.17.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
-    "three": "^0.102.1"
+    "three": "^0.125.0"
   },
   "devDependencies": {
     "@nuxtjs/style-resources": "^0.1.2",
