@@ -72,6 +72,11 @@
           Blurs
         </nuxt-link>
 
+        <nuxt-link to="/curtain"
+        class="button--green">
+          Curtain
+        </nuxt-link>
+
       </div>
     </div>
 

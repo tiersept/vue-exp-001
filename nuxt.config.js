@@ -1,8 +1,8 @@
 import pkg from './package'
+require('dotenv').config()
 
 export default {
   mode: 'universal',
-
   /*
   ** Router
   */
@@ -103,6 +103,10 @@ export default {
     link: [
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900&display=swap' }
     ]
+    // script: [
+    //   { src: '/shaders-planevs.js', type: 'x-shader/x-vertex', id: 'plane-vs' },
+    //   { src: '/shaders-planefs.js', type: 'x-shader/x-fragment', id: 'plane-fs' }
+    // ]
   },
 
   /*
@@ -132,13 +136,18 @@ export default {
   /*
   ** Nuxt.js modules
   */
-  modules: [
+  buildModules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/style-resources',
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/dotenv'
   ],
+  env: {
+    check: 'check',
+    unsplash: process.env.UNSPLASH_KEY
+  },
   /*
   ** Axios module configuration
   */
